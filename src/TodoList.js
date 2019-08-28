@@ -8,6 +8,7 @@ class TodoList extends React.Component {
     this.state = { todos: [] };
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   /* Reverses the completion value of a single todo */
@@ -42,6 +43,27 @@ class TodoList extends React.Component {
     });
   }
 
+  /* deletes an todo from list by id and sets new id values by index */
+  handleDelete(id) {
+    this.setState(prevState => {
+      const changedTodos = prevState.todos;
+      let index;
+      for (let i = 0; i < changedTodos.length; i++) {
+        if (id === changedTodos[i].todoData.id) {
+          index = i;
+          break;
+        }
+      }
+      changedTodos.splice(index, 1);
+      for (let i = 0; i < changedTodos.length; i++) {
+        changedTodos[i].todoData.id = i;
+      }
+      return {
+        todo: changedTodos
+      };
+    });
+  }
+
   /* Renders the input field for adding new todos and under it every previously added todo */
   render() {
     const todos = this.state.todos.map(td => (
@@ -49,6 +71,7 @@ class TodoList extends React.Component {
         key={td.todoData.id}
         todoData={td.todoData}
         handleChange={this.handleChange}
+        handleDelete={this.handleDelete}
       />
     ));
 

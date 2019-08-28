@@ -13,6 +13,14 @@ function Todo(props) {
         onChange={() => props.handleChange(props.todoData.id)}
       />
       <p>{props.todoData.text}</p>
+      <div>
+        <button
+          onClick={() => props.handleDelete(props.todoData.id)}
+          className="deleteButton"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }
