@@ -29,8 +29,6 @@
 }
 
 .todo-input {
-  margin: auto;
-  display: flex;
   border-bottom: 1px solid #efefef;
 }
 
@@ -65,11 +63,8 @@
   color: #333333;
 }
 
-.deleteButton {
-  display: block;
+.filters {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  word-break: normal;
-  position: static;
-  margin-left: 5px;
-  margin-right: 5px;
 }

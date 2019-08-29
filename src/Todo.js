@@ -14,10 +14,7 @@ function Todo(props) {
       />
       <p>{props.todoData.text}</p>
       <div>
-        <button
-          onClick={() => props.handleDelete(props.todoData.id)}
-          className="deleteButton"
-        >
+        <button onClick={() => props.handleDelete(props.todoData.id)}>
           Delete
         </button>
       </div>

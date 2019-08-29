@@ -24,11 +24,16 @@ class TodoInput extends React.Component {
         <form onSubmit={this.submit}>
           <input
             className="input-panel"
-            placeholder="what should I get done?"
+            placeholder="What should I get done?"
             value={this.state.text}
             type="text"
             onChange={this.handleChange}
           ></input>
+        </form>
+        <form className="filters">
+          <input type="radio" name="filter" value="option 1" /> Show all
+          <input type="radio" name="filter" value="option 2" /> Show undone
+          <input type="radio" name="filter" value="option 3" /> Show done
         </form>
       </div>
     );

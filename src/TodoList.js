@@ -5,7 +5,7 @@ import TodoInput from "./TodoInput";
 class TodoList extends React.Component {
   constructor() {
     super();
-    this.state = { todos: [] };
+    this.state = { filteroption: 1, todos: [] };
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
