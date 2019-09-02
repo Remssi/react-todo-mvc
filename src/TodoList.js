@@ -5,10 +5,11 @@ import TodoInput from "./TodoInput";
 class TodoList extends React.Component {
   constructor() {
     super();
-    this.state = { filteroption: 1, todos: [] };
+    this.state = { filteroption: "showAll", todos: [] };
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
   /* Reverses the completion value of a single todo */
@@ -43,7 +44,7 @@ class TodoList extends React.Component {
     });
   }
 
-  /* deletes an todo from list by id and sets new id values by index */
+  /* Deletes an todo from list by id and sets new id values by index */
   handleDelete(id) {
     this.setState(prevState => {
       const changedTodos = prevState.todos;
@@ -64,16 +65,55 @@ class TodoList extends React.Component {
     });
   }
 
+  /* Changes state's filter option which defines what todos are shown */
+  handleFilter(option) {
+    this.setState(() => {
+      return {
+        filteroption: option
+      };
+    });
+  }
+
   /* Renders the input field for adding new todos and under it every previously added todo */
   render() {
-    const todos = this.state.todos.map(td => (
-      <Todo
-        key={td.todoData.id}
-        todoData={td.todoData}
-        handleChange={this.handleChange}
-        handleDelete={this.handleDelete}
-      />
-    ));
+    let todos;
+
+    if (this.state.filteroption === "showUndone") {
+      todos = this.state.todos.map(td => {
+        if (td.todoData.completed == false) {
+          return (
+            <Todo
+              key={td.todoData.id}
+              todoData={td.todoData}
+              handleChange={this.handleChange}
+              handleDelete={this.handleDelete}
+            />
+          );
+        }
+      });
+    } else if (this.state.filteroption === "showDone") {
+      todos = this.state.todos.map(td => {
+        if (td.todoData.completed == true) {
+          return (
+            <Todo
+              key={td.todoData.id}
+              todoData={td.todoData}
+              handleChange={this.handleChange}
+              handleDelete={this.handleDelete}
+            />
+          );
+        }
+      });
+    } else {
+      todos = this.state.todos.map(td => (
+        <Todo
+          key={td.todoData.id}
+          todoData={td.todoData}
+          handleChange={this.handleChange}
+          handleDelete={this.handleDelete}
+        />
+      ));
+    }
 
     return (
       <div
@@ -81,7 +121,10 @@ class TodoList extends React.Component {
           this.state.todos.length > 0 ? "todo-list-withTodos" : "todo-list"
         }
       >
-        <TodoInput handleInput={this.handleInput} />
+        <TodoInput
+          handleInput={this.handleInput}
+          handleFilter={this.handleFilter}
+        />
         {todos}
       </div>
     );

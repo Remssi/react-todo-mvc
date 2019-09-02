@@ -4,9 +4,10 @@ import React from "react";
 class TodoInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: "" };
+    this.state = { text: "", currentFilterOption: "showAll" };
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.filter = this.filter.bind(this);
   }
 
   handleChange(event) {
@@ -16,6 +17,10 @@ class TodoInput extends React.Component {
   submit(event) {
     event.preventDefault();
     this.props.handleInput(this.state.text);
+  }
+
+  filter(event) {
+    this.props.handleFilter(event.target.value);
   }
 
   render() {
@@ -31,9 +36,27 @@ class TodoInput extends React.Component {
           ></input>
         </form>
         <form className="filters">
-          <input type="radio" name="filter" value="option 1" /> Show all
-          <input type="radio" name="filter" value="option 2" /> Show undone
-          <input type="radio" name="filter" value="option 3" /> Show done
+          <input
+            type="radio"
+            name="filter"
+            onClick={this.filter}
+            value="showAll"
+          />{" "}
+          Show all
+          <input
+            type="radio"
+            name="filter"
+            onClick={this.filter}
+            value="showUndone"
+          />{" "}
+          Show undone
+          <input
+            type="radio"
+            name="filter"
+            onClick={this.filter}
+            value="showDone"
+          />{" "}
+          Show done
         </form>
       </div>
     );
